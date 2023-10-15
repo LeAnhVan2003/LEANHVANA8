@@ -79,14 +79,27 @@ $list = Brand::all();
                                        <?=$item->name; ?>
                                     </div>
                                     <div class="function_style">
-                                    <?php if($item->status==1):?>
-                                          <a class="text-success" href="idex.php?option=brand&cat=status">Hiện</a> |
-                                       <?php else:?>
-                                          <a class="text-danger" href="idex.php?option=brand&cat=status&id= <?php echo $item->id; ?>">Ẩn</a> |
-                                       <?php endif;?>
-                                       <a href="idex.php?option=brand&cat=edit&id= <?php echo $item->id; ?>">Chỉnh sửa</a> |   
-                                       <a href="idex.php?option=brand&cat=show&id= <?php echo $item->id; ?>">Chi tiết</a> |
-                                       <a href="idex.php?option=brand&cat=delete&id= <?php echo $item->id; ?>">Xoá</a>
+                                       <?php if ($item->status == 1) : ?>
+                                       <a href="index.php?option=brand&cat=status&id=<?=$item->id; ?>" class="btn 
+                                       btn-success btn-xs">
+                                          <i class="fas fa-toggle-on"></i> Hiện
+                                       </a>
+                                       <?php else : ?>
+                                       <a href="index.php?option=brand&cat=status&id=<?= $item->id; ?>" class="btn 
+                                       btn-danger btn-xs">
+                                          <i class="fas fa-toggle-off"></i> Ẩn
+                                       </a>
+                                       <?php endif; ?>
+                                       <a href="index.php?option=brand&cat=edit&id=<?=$item->id; ?>" class="btn btn-primary btn-xs">
+                                       <i class="fas fa-edit"></i> Chỉnh sửa
+
+                                       </a>
+                                       <a href="index.php?option=brand&cat=show&id=<?=$item->id; ?>" class="btn btn-info btn-xs">
+                                       <i class="fas fa-eye"></i> Chi tiết
+                                       </a>
+                                       <a href="index.php?option=brand&cat=delete&id=<?=$item->id; ?>" class="btn btn-danger btn-xs">
+                                       <i class="fas fa-trash"></i> Xoá
+                                       </a>
                                     </div>
                                  </td>
                                  <td><?=$item->slug?></td>

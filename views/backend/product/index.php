@@ -1,47 +1,42 @@
 <?php
-use App\Models\Brand;
-use App\Models\Category;
-$list_brand = Brand::where('status','!=',0)->orderBy('created_at','DESC')
-->get();
-$list_category = Category::where('status','!=',0)->orderBy('created_at','DESC')
-->get();
-$brand_id_html='';
-foreach($list_brand as $brand)
-{
-   $brand_id_html="<option value='$brand->id'>$brand->name</option>";
-}
-$category_id_html='';
-foreach($list_category as $category)
-{
-   $category_id_html="<option value='$category->id'>$category->name</option>";
-}
-?>
-<?php
 use App\Models\Product;
-$list = Product::all();
+use App\Models\Category;
+use App\Models\Brand;
+
+
+$list = Product::join('category', 'product.category_id', '=', 'category.id')
+ ->join('brand', 'product.brand_id', '=', 'brand.id')
+ ->where('product.status', '!=', 0)
+ ->orderBy('product.created_at', 'desc')
+ ->select("product.*", "brand.name as brand_name", "category.name as category_name")
+ ->get();
+
 ?>
+
+
 <?php require_once "../views/backend/header.php";?>
       <!-- CONTENT -->
-      <form action="" method="post">
+      <form action ="index.php?option=product&cat=process" method="post" enctype="multipart/form-data">
          <div class="content-wrapper">
             <section class="content-header">
                <div class="container-fluid">
                   <div class="row mb-2">
                      <div class="col-sm-12">
                         <h1 class="d-inline">Tất cả sản phẩm</h1>
-                        <a href="index.php?option=product&cat=create"  class="btn btn-sm btn-primary">Thêm sản phẩm</a>
+                        <a href="index.php?option=product&cat=create" class="btn btn-sm btn-primary">Thêm sản phẩm</a>
                      </div>
                   </div>
                </div>
             </section>
-            <!-- Main content -->
+            <!-- Main content --> 
             <section class="content">
                <div class="card">
                   <div class="card-header">
                      <select name="" id="" class="form-control d-inline" style="width:100px;">
                         <option value="">Xoá</option>
                      </select>
-                     <button class="btn btn-sm btn-success">Áp dụng</button>
+                     <button class="btn btn-sm btn-success" type ="submit" name ="THEM">Áp dụng</button>
+
                   </div>
                   <div class="card-body">
                      <table class="table table-bordered" id="mytable">
@@ -57,34 +52,32 @@ $list = Product::all();
                            </tr>
                         </thead>
                         <tbody>
-                        <?php if (count($list)>0):?>
-                              <?php foreach($list as $item) : ?>
+                        <?php if(count($list) > 0) : ?>
+                              <?php foreach($list as $item   ):?>
                            <tr class="datarow">
                               <td>
                                  <input type="checkbox">
                               </td>
                               <td>
-                                 <img src="../public/images/product/<?=$item->image;?>" alt="<?=$item->image;?>">
+                              <img class="img-fluid" src="../public/images/product/<?=$item->image;?>" alt="<?$item->image;?>">
                               </td>
                               <td>
                                  <div class="name">
-                                 <?=$item->name; ?>
+                                 <?= $item->name ; ?> 
+                                    
                                  </div>
                                  <div class="function_style">
-                                 <?php if($item->status==1):?>
-                                          <a class="text-success" href="idex.php?option=category&cat=status">Hiện</a> |
-                                       <?php else:?>
-                                          <a class="text-danger" href="idex.php?option=category&cat=status&id= <?php echo $item->id; ?>">Ẩn</a> |
-                                       <?php endif;?>
-                                       <a href="idex.php?option=category&cat=edit&id= <?php echo $item->id; ?>">Chỉnh sửa</a> |   
-                                       <a href="idex.php?option=category&cat=show&id= <?php echo $item->id; ?>">Chi tiết</a> |
-                                       <a href="idex.php?option=category&cat=delete&id= <?php echo $item->id; ?>">Xoá</a>
+                                    <a href="#">Hiện</a> |
+                                    <a href="#">Chỉnh sửa</a> |
+                                    <a href="index.php?option=product&cat=show">Chi tiết</a> |
+                                    <a href="#">Xoá</a>
                                  </div>
                               </td>
-                              <td><?=$item->category_id_html;?></td>
-                              <td><?=$item->brand_id_html?></td>
+                           
+                              <td><?= $item->category_name ; ?> </td>
+                              <td><?= $item->brand_name ; ?> </td>
                            </tr>
-                           <?php endforeach; ?>
+                           <?php endforeach;?>
                               <?php endif;?>
                         </tbody>
                      </table>

@@ -1,4 +1,13 @@
+<?php
+use App\Models\Product;
+
+
+$list = product::where('status','!=',0)->orderBy('Created_at','DESC')->get();
+
+?>
+
 <?php require_once "../views/backend/header.php";?>
+
       <!-- CONTENT -->
       <div class="content-wrapper">
          <section class="content-header">
@@ -10,14 +19,15 @@
                </div>
             </div>
          </section>
+
          <!-- Main content -->
          <section class="content">
             <div class="card">
                <div class="card-header text-right">
-               <a href="index.php?option=product" class="btn btn-sm btn-info">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                        Về danh sách
-                     </a>
+                  <a href="index.php?option=product" class="btn btn-sm btn-info">
+                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                     Về danh sách
+                  </a>
                </div>
                <div class="card-body p-2">
                   <table class="table table-bordered">

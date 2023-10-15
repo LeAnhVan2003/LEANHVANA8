@@ -1,18 +1,12 @@
-<?php
-use App\Models\Contact;
-
-$list = Contact::where('status','!=',0)->orderBy('Created_at','DESC')->get();
-?>
 <?php require_once "../views/backend/header.php";?>
       <!-- CONTENT -->
-      <form action ="index.php?option=contact&cat=process" method="post" enctype="multipart/form-data">
-
       <div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-12">
-                     <h1 class="d-inline">Tất cả liên hệ</h1>
+                     <h1 class="d-inline">Tất cả trang đơn</h1>
+                     <a href="index.php?option=page&cat=create" class="btn btn-sm btn-primary">Thêm trang đơn</a>
                   </div>
                </div>
             </div>
@@ -20,23 +14,19 @@ $list = Contact::where('status','!=',0)->orderBy('Created_at','DESC')->get();
          <!-- Main content -->
          <section class="content">
             <div class="card">
-               <div class="card-header text-right">
-                 Nội Dung
+               <div class="card-header p-2">
+                  Noi dung
                </div>
-               <div class="card-body">
-                  <table class="table table-bordered" id="mytable">
+               <div class="card-body p-2">
+                  <table class="table table-bordered">
                      <thead>
                         <tr>
                            <th class="text-center" style="width:30px;">
                               <input type="checkbox">
                            </th>
-                           <th>user_id</th>
-                           <th>Họ tên</th>
-                           <th>Email</th>
-                           <th>Điện thoại</th>
-                           <th>Tiêu đề</th>
-                           <th>Nội Dung</th>
-                           
+                           <th class="text-center" style="width:130px;">Hình ảnh</th>
+                           <th>Tên trang đơn</th>
+                           <th>slug</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -45,20 +35,20 @@ $list = Contact::where('status','!=',0)->orderBy('Created_at','DESC')->get();
                               <input type="checkbox">
                            </td>
                            <td>
-                              1
+                              <img src="../public/images/page.jpg" alt="page.jpg">
+                           </td>
+                           <td>
+                              <div class="name">
+                                 Tên trang đơn
                               </div>
                               <div class="function_style">
                                  <a href="#">Hiện</a> |
-                                 <a href="#">Trả lời</a> |
-                                 <a href="../backend/brand_show.html">Chi tiết</a> |
+                                 <a href="#">Chỉnh sửa</a> |
+                                 <a href="../backend/page_show.html">Chi tiết</a> |
                                  <a href="#">Xoá</a>
                               </div>
                            </td>
-                           <td>LeAnhVan</td>
-                           <td>leanhvan.20072004@gmail.com</td>
-                           <td>099999999</td>
-                           <td>Shop thời trang</td>
-                           <td>Sỉ lẻ thời trang</td>
+                           <td>Slug</td>
                         </tr>
                      </tbody>
                   </table>
@@ -66,7 +56,5 @@ $list = Contact::where('status','!=',0)->orderBy('Created_at','DESC')->get();
             </div>
          </section>
       </div>
-      <form action ="index.php?option=brand&cat=process" method="post" enctype="multipart/form-data">
-
       <!-- END CONTENT-->
       <?php require_once "../views/backend/footer.php";?>

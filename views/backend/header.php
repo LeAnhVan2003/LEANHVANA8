@@ -51,7 +51,7 @@
                </div>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="#" role="button">
+               <a class="nav-link" href="logout.php" role="button">
                   <i class="fas fa-power-off"></i> Đăng xuất
                </a>
 </li>
@@ -69,7 +69,7 @@
                   <img src="../public/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                </div>
                <div class="info">
-                  <a href="#" class="d-block">Hồ Diên Lợi</a>
+                  <a href="#" class="d-block">LÊ ANH VĂN</a>
                </div>
             </div>
             <nav class="mt-2">

@@ -1,9 +1,16 @@
 <?php
 use App\Models\Menu;
-$list = Menu::all();
+//status=0--> Rac
+//status=1--> Hiện thị lên trang người dùng
+//
+//SELECT * FROM brand wher status!=0 and id=1 order by created_at desc
+
+$list = menu::where('status','!=',0)->orderBy('Created_at','DESC')->get();
 ?>
 <?php require_once "../views/backend/header.php";?>
       <!-- CONTENT -->
+      <form action ="index.php?option=menu&cat=process" method="post" enctype="multipart/form-data">
+
       <div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">
@@ -53,6 +60,8 @@ $list = Menu::all();
                                  </div>
                               </div>
                            </div>
+                           <form action ="index.php?option=menu&cat=process" method="post" enctype="multipart/form-data">
+   
                            <div class="card mb-0">
                               <div class="card-header" id="headingBrand">
                                  <strong data-toggle="collapse" data-target="#collapseBrand" aria-expanded="true"
@@ -71,11 +80,13 @@ $list = Menu::all();
                                        </label>
                                     </div>
                                     <div class="my-3">
+                                 
                                        <button name="ADDBRAND" class="btn btn-sm btn-success form-control">Thêm</button>
                                     </div>
                                  </div>
                               </div>
                            </div>
+                           </form>
                            <div class="card mb-0">
                               <div class="card-header" id="headingTopic">
                                  <strong data-toggle="collapse" data-target="#collapseTopic" aria-expanded="true"
@@ -161,14 +172,13 @@ $list = Menu::all();
                               </tr>
                            </thead>
                            <tbody>
-                           <?php foreach($list as $item) : ?>
                               <tr class="datarow">
                                  <td>
                                     <input type="checkbox">
                                  </td>
                                  <td>
                                     <div class="name">
-                                    <?php echo $item->name; ?>
+                                       Trang chủ
                                     </div>
                                     <div class="function_style">
                                        <a href="#">Hiện</a> |
@@ -180,7 +190,6 @@ $list = Menu::all();
                                  <td>index.php</td>
                                  <td>mainmenu</td>
                               </tr>
-                              <?php endforeach;?>
                            </tbody>
                         </table>
                      </div>
@@ -189,5 +198,6 @@ $list = Menu::all();
             </div>
          </section>
       </div>
+      </form>
       <!-- END CONTENT-->
       <?php require_once "../views/backend/footer.php";?>

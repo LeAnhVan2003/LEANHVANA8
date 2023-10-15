@@ -1,25 +1,29 @@
 <?php
-use App\Models\Brand;
+use App\Models\product;
+
 use App\Models\Category;
-$list_brand = Brand::where('status','!=',0)->orderBy('created_at','DESC')
-->get();
-$list_category = Category::where('status','!=',0)->orderBy('created_at','DESC')
-->get();
-$brand_id_html='';
-foreach($list_brand as $brand)
+use App\Models\Brand;
+
+$list_category = Category::where('status','!=',0)->orderBy('Created_at','DESC')->get();
+$list_brand = Brand::where('status','!=',0)->orderBy('Created_at','DESC')->get();
+
+$category_id_html ="";
+$brand_id_html ="";
+
+foreach ($list_category as $category)
 {
-   $brand_id_html="<option value='$brand->id'>$brand->name</option>";
+   $category_id_html .="<option value ='$category->id'>$category->name</option>";
 }
-$category_id_html='';
-foreach($list_category as $category)
+foreach ($list_brand as $brand)
 {
-   $category_id_html="<option value='$category->id'>$category->name</option>";
+   $brand_id_html .="<option value ='$brand->id'>$brand->name</option>";
 }
+
 ?>
 <?php require_once "../views/backend/header.php";?>
-<form action="index.php?option=product&cat=process" method="post" enctype="multipart/form-data">
+
       <!-- CONTENT -->
-      <form action="" method="post">
+      <form action ="index.php?option=product&cat=process" method="post" enctype="multipart/form-data">
          <div class="content-wrapper">
             <section class="content-header">
                <div class="container-fluid">
@@ -37,7 +41,7 @@ foreach($list_category as $category)
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>
                         Về danh sách
                      </a>
-                     <button type="submit" class="btn btn-sm btn-success" name="THEM">
+                     <button type="submit" class="btn btn-sm btn-success" type="submit" name="THEM">
                         <i class="fa fa-save" aria-hidden="true"></i>
                         Thêm sản phẩm
                      </button>
@@ -59,7 +63,7 @@ foreach($list_category as $category)
                                     <label>Danh mục (*)</label>
                                     <select name="category_id" class="form-control">
                                        <option value="">Chọn danh mục</option>
-                                       <?=$category_id_html;?>
+                                       <?= $category_id_html;?>
                                     </select>
                                  </div>
                               </div>
@@ -68,7 +72,7 @@ foreach($list_category as $category)
                                     <label>Thương hiệu (*)</label>
                                     <select name="brand_id" class="form-control">
                                        <option value="">Chọn thương hiệu</option>
-                                       <?=$brand_id_html;?>
+                                       <?= $brand_id_html;?>
                                     </select>
                                  </div>
                               </div>
@@ -77,12 +81,24 @@ foreach($list_category as $category)
                               <label>Chi tiết (*)</label>
                               <textarea name="detail" placeholder="Nhập chi tiết sản phẩm" rows="5"
                                  class="form-control"></textarea>
-                           </div>
+                         <div class="mb-3">
+                           <label>Mô tả</label>
+                          <textarea name="description" class="form-control"></textarea>
+                         </div>
+                       
                         </div>
                         <div class="col-md-3">
                            <div class="mb-3">
                               <label>Giá bán (*)</label>
                               <input type="number" value="10000" min="10000" name="price" class="form-control">
+                           </div>
+                           <div class="mb-3">
+                              <label>Giá sale (*)</label>
+                              <input type="number" value="10000" min="10000" name="price_sale" class="form-control">
+                           </div>
+                           <div class="mb-3">
+                              <label>SL (*)</label>
+                              <input type="number" value="1" min="1" name="qty" class="form-control">
                            </div>
                            <div class="mb-3">
                               <label>Hình đại diện</label>

@@ -1,10 +1,10 @@
 <?php
 use App\Models\Category;
-$list = Category::all();
+$list = category::where('status','!=',0)->orderBy('Created_at','DESC')->get();
 ?>
-<?php require_once "../views/backend/header.php";?>
-<form action="index.php?option=category&cat=process" method="post" enctype="multipart/form-data">
-      <!-- CONTENT -->
+<?php require_once '../views/backend/header.php';?>
+<form action ="index.php?option=category&cat=process" method="post" enctype="multipart/form-data">
+     <!-- CONTENT -->
       <div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">
@@ -19,26 +19,27 @@ $list = Category::all();
          <section class="content">
             <div class="card">
                <div class="card-header text-right">
-                  <button class="btn btn-sm btn-success" type="sumbit" name="THEM">
+                  <button class="btn btn-sm btn-success" type="subumit"name ="THEM">
                      <i class="fa fa-save" aria-hidden="true"></i>
                      Lưu
                   </button>
+
                </div>
                <div class="card-body">
                   <div class="row">
                      <div class="col-md-4">
                         <div class="mb-3">
                            <label>Tên danh mục (*)</label>
-                           <input type="text" name="name" id="name" placeholder="Nhập tên danh mục" class="form-control"
+                           <input type="text" name="name" id="name" placettder="Nhập tên danh mục" class="form-control"
                               onkeydown="handle_slug(this.value);">
                         </div>
                         <div class="mb-3">
                            <label>Slug</label>
-                           <input type="text" name="slug" id="slug" placeholder="Nhập slug" class="form-control">
+                           <input type="text" name="slug" id="slug" placettder="Nhập slug" class="form-control">
                         </div>
                         <div class="mb-3">
-                           <label>Mô Tả</label>
-                           <textarea name="description" class="form-control"></textarea>
+                        <label>Mô tả</label>
+                          <textarea name="description" class="form-control"></textarea>
                         </div>
                         <div class="mb-3">
                            <label>Danh mục cha (*)</label>
@@ -72,34 +73,30 @@ $list = Category::all();
                               </tr>
                            </thead>
                            <tbody>
-                           <?php if (count($list)>0):?>
-                              <?php foreach($list as $item) : ?>
+                           <?php if(count($list) > 0) : ?>
+                              <?php foreach($list as $item   ):?>
                               <tr class="datarow">
                                  <td>
                                     <input type="checkbox">
                                  </td>
                                  <td>
-                                    <img src="../public/images/category/<?php echo $item->image; ?>" alt="<?php echo $item->image; ?>">
+                                 <img class="img-fluid" src="../public/images/category/<?=$item->image;?>" alt="<?=$item->image;?>">
                                  </td>
                                  <td>
                                     <div class="name">
-                                    <?php echo $item->name; ?>
+                                       Tên danh mục
                                     </div>
                                     <div class="function_style">
-                                       <?php if($item->status==1):?>
-                                          <a class="text-success" href="idex.php?option=category&cat=status">Hiện</a> |
-                                       <?php else:?>
-                                          <a class="text-danger" href="idex.php?option=category&cat=status&id= <?php echo $item->id; ?>">Ẩn</a> |
-                                       <?php endif;?>
-                                       <a href="idex.php?option=category&cat=edit&id= <?php echo $item->id; ?>">Chỉnh sửa</a> |   
-                                       <a href="idex.php?option=category&cat=show&id= <?php echo $item->id; ?>">Chi tiết</a> |
-                                       <a href="idex.php?option=category&cat=delete&id= <?php echo $item->id; ?>">Xoá</a>
+                                       <a href="#">Hiện</a> |
+                                       <a href="#">Chỉnh sửa</a> |
+                                       <a href="../backend/category_show.html">Chi tiết</a> |
+                                       <a href="#">Xoá</a>
                                     </div>
                                  </td>
-                                 <td><?=$item->slug?></td>
+                                 <td><?= $item->slug?></td>
                               </tr>
                               <?php endforeach;?>
-                              <?php endif ;?>
+                              <?php endif;?>
                            </tbody>
                         </table>
                      </div>
@@ -109,4 +106,6 @@ $list = Category::all();
          </section>
       </div>
       <!-- END CONTENT-->
+      </form>
       <?php require_once '../views/backend/footer.php';?>
+      
