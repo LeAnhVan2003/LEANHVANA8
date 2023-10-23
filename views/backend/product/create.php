@@ -97,7 +97,7 @@ foreach ($list_brand as $brand)
                               <input type="number" value="10000" min="10000" name="price_sale" class="form-control">
                            </div>
                            <div class="mb-3">
-                              <label>SL (*)</label>
+                              <label>Số Lượng (*)</label>
                               <input type="number" value="1" min="1" name="qty" class="form-control">
                            </div>
                            <div class="mb-3">

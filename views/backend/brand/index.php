@@ -1,12 +1,21 @@
 <?php
-use App\Models\Brand;
-$list = Brand::all();
-?>
 
+
+use App\Models\Brand;
+
+//status=0--> Rac
+//status=1--> Hiện thị lên trang người dùng
+//
+//SELECT * FROM brand wher status!=0 and id=1 order by created_at desc
+
+$list = brand::where('status','!=',0)->orderBy('Created_at','DESC')->get();
+?>
 <?php require_once "../views/backend/header.php";?>
-<form action="index.php?option=brand&cat=process" method="post" enctype="multipart/form-data">
       <!-- CONTENT -->
-      <div class="content-wrapper">
+      
+<form action ="index.php?option=brand&cat=process" method="post" enctype="multipart/form-data">
+
+<div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">
                <div class="row mb-2">
@@ -16,16 +25,28 @@ $list = Brand::all();
                </div>
             </div>
          </section>
-         <!-- Main content -->
+         <!-- Main content -->=
          <section class="content">
             <div class="card">
-               <div class="card-header text-right">
-                  <button class="btn btn-sm btn-success" type="sumbit" name="THEM">
+               <div class="card-header">
+
+                 <div class="row">
+                 <div class="col-md-6">
+                  <a href="index.php?option=brand">Tất cả</a> |
+                  <a href="index.php?option=brand&cat=trash"> Thùng rác</a>
+                 </div>
+                  <div class="col-md-6 text-right">
+                     <button class="btn btn-sm btn-success" type="submit" name ="THEM">
                      <i class="fa fa-save" aria-hidden="true"></i>
                      Lưu
                   </button>
                </div>
+                 </div>
+
+               </div>
                <div class="card-body">
+                
+               <?php require_once "../views/backend/message.php";?>
                   <div class="row">
                      <div class="col-md-4">
                         <div class="mb-3">
@@ -37,8 +58,8 @@ $list = Brand::all();
                            <input type="text" name="slug" class="form-control">
                         </div>
                         <div class="mb-3">
-                           <label>Mô Tả</label>
-                           <textarea name="description" class="form-control"></textarea>
+                           <label>Mô tả</label>
+                          <textarea name="description" class="form-control"></textarea>
                         </div>
                         <div class="mb-3">
                            <label>Hình đại diện</label>
@@ -65,18 +86,18 @@ $list = Brand::all();
                               </tr>
                            </thead>
                            <tbody>
-                              <?php if (count($list)>0):?>
-                              <?php foreach($list as $item) : ?>
-                              <tr class="datarow">
+                          <?php if(count($list) > 0) : ?>
+                              <?php foreach($list as $item):?>
+                              <tr class="datarow">  
                                  <td>
                                     <input type="checkbox">
                                  </td>
                                  <td>
-                                    <img src="../public/images/brand/<?=$item->image;?>" alt="<?=$item->image;?>">
+                                 <img class="img-fluid" src="../public/images/brand/<?=$item->image;?>" alt="<?=$item->image;?>">
                                  </td>
                                  <td>
                                     <div class="name">
-                                       <?=$item->name; ?>
+                                      <?= $item->name ; ?> 
                                     </div>
                                     <div class="function_style">
                                        <?php if ($item->status == 1) : ?>
@@ -102,9 +123,9 @@ $list = Brand::all();
                                        </a>
                                     </div>
                                  </td>
-                                 <td><?=$item->slug?></td>
+                                 <td><?= $item->slug?></td>
                               </tr>
-                              <?php endforeach; ?>
+                              <?php endforeach;?>
                               <?php endif;?>
                            </tbody>
                         </table>
@@ -114,5 +135,6 @@ $list = Brand::all();
             </div>
          </section>
       </div>
+</form>
       <!-- END CONTENT-->
-      <?php require_once '../views/backend/footer.php';?>
+      <?php require_once "../views/backend/footer.php";?>

@@ -1,16 +1,6 @@
-<?php
-use App\Models\Category;
-$list_category = Category::where('status','!=',0)->orderBy('created_at','DESC')
-->get();
-$category_id_html='';
-foreach($list_category as $category)
-{
-   $category_id_html="<option value='$category->id'>$category->name</option>";
-}
-?>
 <?php require_once "../views/backend/header.php";?>
-<form action="index.php?option=post&cat=process" method="post" enctype="multipart/form-data">
       <!-- CONTENT -->
+      <form action ="index.php?option=post&cat=process" method="post" enctype="multipart/form-data">
       <div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">
@@ -24,11 +14,11 @@ foreach($list_category as $category)
          <section class="content">
             <div class="card">
                <div class="card-header text-right">
-                  <a href="post_index.html" class="btn btn-sm btn-info">
+                  <a href="index.php?option=post" class="btn btn-sm btn-info">
                      <i class="fa fa-arrow-left" aria-hidden="true"></i>
                      Về danh sách
                   </a>
-                  <button class="btn btn-sm btn-success" type="sumbit" name="THEM">
+                  <button class="btn btn-sm btn-success" type ="submit" name = "THEM">
                      <i class="fa fa-save" aria-hidden="true"></i>
                      Thêm bài viết
                   </button>
@@ -41,8 +31,16 @@ foreach($list_category as $category)
                            <input type="text" name="title" class="form-control">
                         </div>
                         <div class="mb-3">
+                           <label>Kiểu mẫu (*)</label>
+                           <input type="text" name="type" class="form-control">
+                        </div>
+                        <div class="mb-3">
                            <label>Slug</label>
                            <input type="text" name="slug" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                           <label>Mô tả</label>
+                           <input type="text" name="description" class="form-control">
                         </div>
                         <div class="mb-3">
                            <label>Chi tiết (*)</label>
@@ -54,7 +52,7 @@ foreach($list_category as $category)
                            <label>Chủ đề (*)</label>
                            <select name="topic_id" class="form-control">
                               <option value="">None</option>
-                              <?=$category_id_html;?>
+                              <option value="1">Tên danh mục</option>
                            </select>
                         </div>
                         <div class="mb-3">
@@ -74,6 +72,6 @@ foreach($list_category as $category)
             </div>
          </section>
       </div>
+      </form>
       <!-- END CONTENT-->
-  
       <?php require_once "../views/backend/footer.php";?>

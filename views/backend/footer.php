@@ -15,6 +15,6 @@
          $('#mytable').DataTable();
       });
    </script>
-</body> 
+</body>
 
 </html>

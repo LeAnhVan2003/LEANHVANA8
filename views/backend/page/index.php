@@ -35,7 +35,7 @@
                               <input type="checkbox">
                            </td>
                            <td>
-                              <img src="../public/images/page.jpg" alt="page.jpg">
+                           <img class="img-fluid" src="../public/images/logo.png" alt="Logo">
                            </td>
                            <td>
                               <div class="name">

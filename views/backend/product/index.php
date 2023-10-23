@@ -31,12 +31,16 @@ $list = Product::join('category', 'product.category_id', '=', 'category.id')
             <!-- Main content --> 
             <section class="content">
                <div class="card">
-                  <div class="card-header">
-                     <select name="" id="" class="form-control d-inline" style="width:100px;">
+                  <div class="card-header">             
+                        <select name="" id="" class="form-control d-inline" style="width:100px;">
                         <option value="">Xoá</option>
-                     </select>
-                     <button class="btn btn-sm btn-success" type ="submit" name ="THEM">Áp dụng</button>
-
+                        </select>
+                        <button class="btn btn-sm btn-success" type ="submit" name ="THEM">Áp dụng</button>
+                     <div class="row">
+                     <div  div class="col-md-6">
+                        <a href="index.php?option=product">Tất cả</a> |
+                        <a href="index.php?option=product&cat=trash"> Thùng rác</a>
+                     </div>
                   </div>
                   <div class="card-body">
                      <table class="table table-bordered" id="mytable">
@@ -59,7 +63,7 @@ $list = Product::join('category', 'product.category_id', '=', 'category.id')
                                  <input type="checkbox">
                               </td>
                               <td>
-                              <img class="img-fluid" src="../public/images/product/<?=$item->image;?>" alt="<?$item->image;?>">
+                              <img class="img-fluid" src="../public/images/product/<?=$item->image;?>" alt="<?=$item->image;?>">
                               </td>
                               <td>
                                  <div class="name">
@@ -67,10 +71,25 @@ $list = Product::join('category', 'product.category_id', '=', 'category.id')
                                     
                                  </div>
                                  <div class="function_style">
-                                    <a href="#">Hiện</a> |
-                                    <a href="#">Chỉnh sửa</a> |
-                                    <a href="index.php?option=product&cat=show">Chi tiết</a> |
-                                    <a href="#">Xoá</a>
+                                 <?php if ($item->status == 1) : ?>
+                                       <a href="index.php?option=product&cat=status&id=<?=$item->id; ?>" class="btn 
+                                       btn-success btn-xs">
+                                          <i class="fas fa-toggle-on"></i> Hiện
+                                       </a>
+                                       <?php else : ?>
+                                       <a href="index.php?option=product&cat=status&id=<?= $item->id; ?>" class="btn 
+                                       btn-danger btn-xs">
+                                          <i class="fas fa-toggle-off"></i> Ẩn
+                                       </a>
+                                       <?php endif; ?>
+                                       <a href="index.php?option=product&cat=edit&id=<?=$item->id; ?>" class="btn btn-primary btn-xs">
+                                       <i class="fas fa-edit"></i> Chỉnh sửa
+                                       <a href="index.php?option=product&cat=show&id=<?=$item->id; ?>" class="btn btn-info btn-xs">
+                                       <i class="fas fa-eye"></i> Chi tiết
+                                       </a>
+                                       <a href="index.php?option=product&cat=delete&id=<?=$item->id; ?>" class="btn btn-danger btn-xs">
+                                       <i class="fas fa-trash"></i> Xoá
+                                       </a>
                                  </div>
                               </td>
                            

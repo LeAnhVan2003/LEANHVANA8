@@ -1,7 +1,8 @@
 <?php require_once "../views/backend/header.php";?>
 
-<form action="index.php?option=user&cat=process" method="post" enctype="multipart/form-data">
       <!-- CONTENT -->
+      <form action ="index.php?option=user&cat=process" method="post" enctype="multipart/form-data">
+
       <div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">
@@ -15,11 +16,11 @@
          <section class="content">
             <div class="card">
                <div class="card-header text-right">
-                  <a href="user_index.html" class="btn btn-sm btn-info">
+                  <a href="index.php?option=user" class="btn btn-sm btn-info">
                      <i class="fa fa-arrow-left" aria-hidden="true"></i>
                      Về danh sách
                   </a>
-                  <button class="btn btn-sm btn-success" type="sumbit" name="THEM">
+                  <button class="btn btn-sm btn-success" type="submit" name="THEM">
                      <i class="fa fa-save" aria-hidden="true"></i>
                      Thêm thành viên
                   </button>
@@ -27,6 +28,7 @@
                <div class="card-body">
                   <div class="row">
                      <div class="col-md-6">
+                
                         <div class="mb-3">
                            <label>Họ tên (*)</label>
                            <input type="text" name="name" class="form-control">
@@ -47,23 +49,22 @@
                            <label>Mật khẩu</label>
                            <input type="password" name="password" class="form-control">
                         </div>
+                     
                         <div class="mb-3">
-                           <label>Địa chỉ</label>
-                           <input type="text" name="address" class="form-control">
+                           <label>Địa Chỉ</label>
+                           <input type="address" name="address" class="form-control">
                         </div>
                      </div>
                      <div class="col-md-6">
-                        <div class="mb-3">
-                           <label>Vai trò</label>
-                           <select name="roles" class="form-control">
-                           <option value="1">Khách</option>
-                           <option value="2">Admin</option>
-                           </select>
-                        </div>
-                        <div class="mb-3">
+                     <div class="mb-3">
                            <label>Hình đại diện</label>
                            <input type="file" name="image" class="form-control">
                         </div>
+                        <div class="mb-3">
+                           <label>Vai Trò</label>
+<input type="roles" name="roles" class="form-control">
+                        </div>
+                       
                         <div class="mb-3">
                            <label>Trạng thái</label>
                            <select name="status" class="form-control">
@@ -77,5 +78,6 @@
             </div>
          </section>
       </div>
+      </form>
       <!-- END CONTENT-->
       <?php require_once "../views/backend/footer.php";?>

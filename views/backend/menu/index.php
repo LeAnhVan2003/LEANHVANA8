@@ -10,7 +10,6 @@ $list = menu::where('status','!=',0)->orderBy('Created_at','DESC')->get();
 <?php require_once "../views/backend/header.php";?>
       <!-- CONTENT -->
       <form action ="index.php?option=menu&cat=process" method="post" enctype="multipart/form-data">
-
       <div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">

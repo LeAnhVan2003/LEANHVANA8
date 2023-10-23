@@ -1,11 +1,15 @@
 <?php
 use App\Models\Order;
+//status=0--> Rac
+//status=1--> Hiện thị lên trang người dùng
+//
+//SELECT * FROM brand wher status!=0 and id=1 order by created_at desc
+
 $list = Order::where('status','!=',0)->orderBy('Created_at','DESC')->get();
 ?>
 <?php require_once "../views/backend/header.php";?>
       <!-- CONTENT -->
       <form action ="index.php?option=order&cat=process" method="post" enctype="multipart/form-data">
-
       <div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">
@@ -45,39 +49,33 @@ $list = Order::where('status','!=',0)->orderBy('Created_at','DESC')->get();
                         <tr class="datarow">
                            <td>
                               <input type="checkbox">
-                           </td>
-                         
+                           </td>                         
                            <td>
                               <div class="User_id">
                               <?= $item->User_id ; ?> 
                            <td>
                               <div class="deliveryname">
                               <?= $item->deliveryname ; ?> 
-                            
                            </td>
                            <td>
                               <div class="deliveryphone">
                               <?= $item->deliveryphone ; ?> 
-                            
                            </td>
                            <td>
                               <div class="deliveryemail">
                               <?= $item->deliveryemail ; ?> 
-                            
                            </td>
                            <td>
                               <div class="deliveryaddress">
                               <?= $item->deliveryaddress ; ?> 
-                                 
                            </td>
                            <td>
                               <div class="note">
-                              <?= $item->note ; ?> 
-                            
+                              <?= $item->note ; ?>                            
                            </td>
                         </tr>
                         <?php endforeach;?>
-                              <?php endif;?>
+                        <?php endif;?>
                      </tbody>
                   </table>
                </div>
@@ -87,4 +85,3 @@ $list = Order::where('status','!=',0)->orderBy('Created_at','DESC')->get();
       </form>
       <!-- END CONTENT-->
       <?php require_once "../views/backend/footer.php";?>
-

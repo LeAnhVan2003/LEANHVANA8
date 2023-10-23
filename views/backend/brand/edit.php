@@ -1,5 +1,6 @@
 <?php
 use App\Models\Brand;
+use App\Libraries\MyClass;
 //status=0--> Rac
 //status=1--> Hiện thị lên trang người dùng
 //
@@ -7,6 +8,7 @@ use App\Models\Brand;
 $id = $_REQUEST['id'];
 $brand =  Brand::find($id);
 if($brand==null){
+   MyClass::set_flash('message',['msg'=>'Thêm thành công','type'=>'denger']);
     header("location:index.php?option=brand");
 }
 

@@ -29,7 +29,7 @@ class Route
             $pathView .= $_REQUEST['option'] . "/";
             if (isset($_REQUEST['cat'])) {
                 $pathView .= $_REQUEST['cat'] . ".php";
-            } else {    
+            } else {
                 $pathView .= "index.php";
             }
         }

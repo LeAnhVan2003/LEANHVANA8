@@ -1,9 +1,19 @@
 <?php
 use App\Models\User;
-$list = User::all();
+
+//status=0--> Rac
+//status=1--> Hiện thị lên trang người dùng
+//
+//SELECT * FROM brand wher status!=0 and id=1 order by created_at desc
+
+$list = user::where('status','!=',0)->orderBy('Created_at','DESC')->get();
+
 ?>
+
 <?php require_once "../views/backend/header.php";?>
       <!-- CONTENT -->
+      <form action ="index.php?option=user&cat=process" method="post" enctype="multipart/form-data">
+
       <div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">
@@ -19,58 +29,87 @@ $list = User::all();
          <section class="content">
             <div class="card">
                <div class="card-header">
+               <div class="row">
+               <div class="col-md-6">
+                  <a href="index.php?option=user">Tất cả</a> |
+                  <a href="index.php?option=user&cat=trash"> Thùng rác</a>
+                  </div>
                   Noi dung
                </div>
                <div class="card-body">
                   <table class="table table-bordered" id="mytable">
                      <thead>
                         <tr>
-                           <th class="text-center" style="width:30px;">
-                              <input type="checkbox">
-                           </th>
-                           <th class="text-center" style="width:130px;">Hình ảnh</th>
-                           <th>Họ tên</th>
+                        <th class="text-center" style="width:30px;">
+                                    <input type="checkbox">
+                                 </th>
+                                 <th class="text-center" style="width:100px;">Hình ảnh</th>
+                           <th style="width: 90px;">Họ tên</th>
                            <th>Điện thoại</th>
                            <th>Email</th>
-                           <th>Địa chỉ</th>
-                           <th>Vai trò</th>
+                           <th>Tên Đăng Nhập</th>
+                           <th>Địa Chỉ </th>
+                          
                         </tr>
                      </thead>
                      <tbody>
-                     <?php foreach($list as $item) : ?>
+                     <?php if(count($list) > 0) : ?>
+                              <?php foreach($list as $item   ):?>
                         <tr class="datarow">
                            <td>
                               <input type="checkbox">
                            </td>
                            <td>
-                              <img src="../public/images/user/<?php echo $item->image; ?>" alt="<?php echo $item->image; ?>">
+                           <img class="img-fluid" src="../public/images/user/<?=$item->image;?>" alt="<?=$item->image;?>">
                            </td>
                            <td>
                               <div class="name">
-                              <?php echo $item->name; ?>
+                              <?= $item->name ; ?> 
+
                               </div>
                               <div class="function_style">
-                              <?php if($item->status==1):?>
-                                          <a class="text-success" href="idex.php?option=category&cat=status">Hiện</a> |
-                                       <?php else:?>
-                                          <a class="text-danger" href="idex.php?option=category&cat=status&id= <?php echo $item->id; ?>">Ẩn</a> |
-                                       <?php endif;?>
-                                       <a href="idex.php?option=category&cat=edit&id= <?php echo $item->id; ?>">Chỉnh sửa</a> |   
-                                       <a href="idex.php?option=category&cat=show&id= <?php echo $item->id; ?>">Chi tiết</a> |
-                                       <a href="idex.php?option=category&cat=delete&id= <?php echo $item->id; ?>">Xoá</a>
-                              </div>
+                                 <?php if ($item->status == 1) : ?>
+                                       <a href="index.php?option=user&cat=status&id=<?=$item->id; ?>" class="btn 
+                                       btn-success btn-xs">
+                                          <i class="fas fa-toggle-on"></i> Hiện
+                                       </a>
+                                       <?php else : ?>
+                                       <a href="index.php?option=user&cat=status&id=<?= $item->id; ?>" class="btn 
+                                       btn-danger btn-xs">
+                                          <i class="fas fa-toggle-off"></i> Ẩn
+                                       </a>
+                                       <?php endif; ?>
+                                       <a href="index.php?option=user&cat=edit&id=<?=$item->id; ?>" class="btn btn-primary btn-xs">
+                                       <i class="fas fa-edit"></i> Chỉnh sửa
+                                       <a href="index.php?option=user&cat=show&id=<?=$item->id; ?>" class="btn btn-info btn-xs">
+                                       <i class="fas fa-eye"></i> Chi tiết
+                                       </a>
+                                       <a href="index.php?option=user&cat=delete&id=<?=$item->id; ?>" class="btn btn-danger btn-xs">
+                                       <i class="fas fa-trash"></i> Xoá
+                                       </a>
+                                 </div>
                            </td>
-                           <td><?php echo $item->phone; ?></td>
-                           <td><?php echo $item->email; ?></td>
-                           <td><?php echo $item->address; ?></td>
-                           <td><?php echo $item->roles; ?></td>
+                           <td> <?= $item->phone ; ?>
+                           </td>
+                           <td> <?= $item->email ; ?> 
+                              </td>
+                              <td> <?= $item->username ; ?> 
+                              </td>
+                              
+                              </td>
+                              <td> <?= $item->address ; ?> 
+                                 </td>
+                             
+                           
                         </tr>
                         <?php endforeach;?>
+                              <?php endif;?>
                      </tbody>
                   </table>
                </div>
             </div>
          </section>
       </div>
+      </form>
       <!-- END CONTENT-->
       <?php require_once "../views/backend/footer.php";?>

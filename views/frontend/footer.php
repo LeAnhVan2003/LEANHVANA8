@@ -1,4 +1,4 @@
-<section class="hdl-footer pb-4">
+<section class="lav-footer pb-4">
       <div class="container">
          <div class="row">
             <div class="col-md-4 pt-4">
@@ -38,16 +38,7 @@
                </div>
             </div>
             <div class="col-md-4 pt-4">
-               <h3 class="widgettilte">
-                  <strong>Liên hệ</strong>
-               </h3>
-               <ul class="footer-menu">
-                  <li><a href="index.html">Trang chủ</a></li>
-                  <li><a href="post_page.html">Giới thiệu</a></li>
-                  <li><a href="product.html">Sản phẩm</a></li>
-                  <li><a href="post_topic.html">Bài viết</a></li>
-                  <li><a href="contact.html">Liên hệ</a></li>
-               </ul>
+            <?php require_once "views/frontend/mod-footermenu.php"?>
             </div>
             <div class="col-md-4 pt-4 text-end">
                <h3 class="fs-5 text-end">
@@ -58,9 +49,9 @@
          </div>
       </div>
    </section>
-   <section class="dhl-copyright bg-dark py-3">
+   <section class="lav-copyright bg-dark py-3">
       <div class="container text-center text-white">
-         Thiết kế bởi: Hồ Diên Lợi - Phone: 0998765432
+      Thiết kế bởi: LEANHVAN - Phone: 0799034669
       </div>
    </section>
 </body>
