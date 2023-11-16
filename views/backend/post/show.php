@@ -1,15 +1,11 @@
 <?php
 use App\Models\Post;
-//status=0--> Rac
-//status=1--> Hiện thị lên trang người dùng
-//
-//SELECT * FROM brand wher status!=0 and id=1 order by created_at desc
+
 $id = $_REQUEST['id'];
 $post = Post::find($id);
 if($post==null){
     header("location:index.php?option=post");
 }
-
 $list = post::where('status','=',0)->orderBy('Created_at','DESC')->get();
 ?>
 <?php require_once "../views/backend/header.php";?>
@@ -20,30 +16,26 @@ $list = post::where('status','=',0)->orderBy('Created_at','DESC')->get();
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-12">
-                     <h1 class="d-inline">Thùng rác bài viết</h1>
-                     <a href="index.php?option=post&cat=create" class="btn btn-sm btn-primary">Thêm bài viết</a>
+                  <strong class="text-dark text-lg">CHI TIẾT BÀI VIẾT</strong>
                   </div>
                </div>
             </div>
          </section>
-         <!-- Main content -->
          <section class="content">
             <div class="card">
-               <div class="card-header p-2">
-               <div class="row">
-                  
-                Noi dung
-                <div class="col-md-11 text-right">
-               <a href="index.php?option=post" class="btn btn-sm btn-info">
-                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                     Về danh sách
-                  </a>
-               </div>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <a class="btn btn-sm btn-info" href="index.php?option=post">
+                            <i class="fas fa-arrow-left"></i> Về danh sách
+                        </a>
+                    </div>
+                </div>
+            </div>
                <div class="card-body p-2">
                   <table class="table table-bordered">
                      <thead>
                         <tr>
-                           
                            <th>Tên trường</th>
                            <th>Giá trị</th>
                         </tr>
@@ -102,8 +94,6 @@ $list = post::where('status','=',0)->orderBy('Created_at','DESC')->get();
                          <td>status</td>
                          <td><?= $post->status;?></td>
                      </tr>
-
-
                      </tbody>
                   </table>
                </div>

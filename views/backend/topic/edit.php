@@ -1,47 +1,43 @@
 <?php
 use App\Models\Topic;
 
-//status=0--> Rac
-//status=1--> Hiện thị lên trang người dùng
-//
-//SELECT * FROM brand wher status!=0 and id=1 order by created_at desc
+$list = topic::where('status','!=',0)->orderBy('Created_at','DESC')->get();
+$parent_id_html ="";
+
+foreach ($list as $cat)
+{
+   $parent_id_html .="<option value ='$cat->id'>$cat->name</option>";
+}
 $id = $_REQUEST['id'];
 $topic =  Topic::find($id);
 if($topic==null){
     header("location:index.php?option=topic");
 }
-
-
 ?>
-
 <?php require_once "../views/backend/header.php";?>
       <!-- CONTENT -->
       <form action ="index.php?option=topic&cat=process" method="post" enctype="multipart/form-data">
-
       <div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-12">
-                     <h1 class="d-inline">Cập nhật chủ đề</h1>
+                  <h1 class="d-inline">CẬP NHẬT CHỦ ĐỀ</h1>
                   </div>
                </div>
             </div>
          </section>
-         <!-- Main content -->
          <section class="content">
             <div class="card">
             <div class="card-header text-right">                                    
-              
                   <a href="index.php?option=topic" class="btn btn-sm btn-info">
                      <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                     Về thương hiệu
+                     Về chủ đề
                   </a>  
-                  <button class="btn btn-sm btn-success" type="submit" name ="CAPNHAT">
+                  <button class="btn btn-sm btn-primary" type="submit" name ="CAPNHAT">
                      <i class="fa fa-save" aria-hidden="true"></i>
                         Lưu
                      </button>
-
                </div>
                <div class="card-body">
                   <div class="row">
@@ -56,9 +52,26 @@ if($topic==null){
                            <input type="text" value="<?=$topic->slug; ?>" name="slug" class="form-control">
                         </div>
                         <div class="mb-3">
-                           <label>Mô tả</label>
-                          <textarea name="description" class="form-control"><?=$topic->description; ?></textarea>
-                         </div>
+                           <label>Từ khóa SEO</label>
+                           <input type="text" value="<?=$topic->metakey; ?>" name="metakey" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                           <label>Mô tả SEO</label>
+                           <input type="text" value="<?=$topic->metadesc; ?>" name="metadesc" class="form-control">
+                        </div>
+                         <div class="mb-3">
+                           <label>Danh mục cha (*)</label>
+                           <select name="parent_id" class="form-control">
+                              <option value="0">none</option>
+                              <?= $parent_id_html;?>
+                           </select>
+                        </div>
+                        <div class="mb-3">
+                           <label>Sắp Xếp</label>
+                           <select name="sort_order" class="form-control">
+                              <option value="1">none</option>   
+                           </select>
+                        </div>
                         <div class="mb-3">
                            <label>Trạng thái</label>
                            <select name="status" class="form-control">

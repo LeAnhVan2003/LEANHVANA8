@@ -6,10 +6,8 @@ use App\Models\Brand;
 
 $list_category = Category::where('status','!=',0)->orderBy('Created_at','DESC')->get();
 $list_brand = Brand::where('status','!=',0)->orderBy('Created_at','DESC')->get();
-
 $category_id_html ="";
 $brand_id_html ="";
-
 foreach ($list_category as $category)
 {
    $category_id_html .="<option value ='$category->id'>$category->name</option>";
@@ -18,10 +16,8 @@ foreach ($list_brand as $brand)
 {
    $brand_id_html .="<option value ='$brand->id'>$brand->name</option>";
 }
-
 ?>
 <?php require_once "../views/backend/header.php";?>
-
       <!-- CONTENT -->
       <form action ="index.php?option=product&cat=process" method="post" enctype="multipart/form-data">
          <div class="content-wrapper">
@@ -29,7 +25,7 @@ foreach ($list_brand as $brand)
                <div class="container-fluid">
                   <div class="row mb-2">
                      <div class="col-sm-12">
-                        <h1 class="d-inline">Thêm mới sản phẩm</h1>
+                     <h1 class="d-inline">THÊM MỚI SẢN PHẨM</h1>
                      </div>
                   </div>
                </div>
@@ -39,14 +35,16 @@ foreach ($list_brand as $brand)
                   <div class="card-header text-right">
                      <a href="index.php?option=product" class="btn btn-sm btn-info">
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                        Về danh sách
+                        Về tất cả sản phẩm
                      </a>
-                     <button type="submit" class="btn btn-sm btn-success" type="submit" name="THEM">
+                     <button type="submit" class="btn btn-sm btn-primary" type="submit" name="THEM">
                         <i class="fa fa-save" aria-hidden="true"></i>
                         Thêm sản phẩm
                      </button>
                   </div>
                   <div class="card-body">
+                  <?php require_once "../views/backend/message.php";?>
+
                      <div class="row">
                         <div class="col-md-9">
                            <div class="mb-3">
@@ -79,13 +77,13 @@ foreach ($list_brand as $brand)
                            </div>
                            <div class="mb-3">
                               <label>Chi tiết (*)</label>
-                              <textarea name="detail" placeholder="Nhập chi tiết sản phẩm" rows="5"
-                                 class="form-control"></textarea>
+                              <textarea name="detail"   placeholder="Nhập chi tiết" 
+                              class="form-control"></textarea>
                          <div class="mb-3">
                            <label>Mô tả</label>
-                          <textarea name="description" class="form-control"></textarea>
+                          <textarea name="description"   placeholder="Nhập mô tả" 
+                          class="form-control"></textarea>
                          </div>
-                       
                         </div>
                         <div class="col-md-3">
                            <div class="mb-3">
@@ -94,10 +92,10 @@ foreach ($list_brand as $brand)
                            </div>
                            <div class="mb-3">
                               <label>Giá sale (*)</label>
-                              <input type="number" value="10000" min="10000" name="price_sale" class="form-control">
+                              <input type="number" value="10000" min="10000" name="pricesale" class="form-control">
                            </div>
                            <div class="mb-3">
-                              <label>Số Lượng (*)</label>
+                              <label>Số Lượng</label>
                               <input type="number" value="1" min="1" name="qty" class="form-control">
                            </div>
                            <div class="mb-3">

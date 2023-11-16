@@ -8,10 +8,10 @@ class Route
             $pathView .= "home.php";
         } else {
             $pathView .= $_REQUEST["option"];
-            if (!isset($_REQUEST["slug"])) {
+            if (isset($_REQUEST["slug"])) {
                 $pathView .= "-detail.php";
             } else {
-                if (!isset($_REQUEST["cat"])) {
+                if (isset($_REQUEST["cat"])) {
                     $pathView .= "-category.php";
                 } else {
                     $pathView .= ".php";

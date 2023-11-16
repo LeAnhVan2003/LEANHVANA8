@@ -1,35 +1,76 @@
 <?php
 
-use App\Models\page;
+use App\Models\post;
 use App\Libraries\MyClass;
 
 if(isset($_POST['THEM']))
 {
-    $page=new page();
+    $post=new post();
     //lấy từ form
-    $page->name = $_POST['name'];
-    $page->slug =(strlen($_POST['slug'])>0) ? $_POST['slug']: MyClass::str_slug($_POST['name']);
-    $page->description = $_POST['description'];
-    $page->status = $_POST['status'];
+    $post->slug =(strlen($_POST['slug'])>0) ? $_POST['slug']: MyClass::str_slug($_POST['title']);
+    $post->title = $_POST['title'];
+    $post->topic_id = $_POST['topic_id'];
+    $post->status = $_POST['status'];
+    $post->detail = $_POST['detail'];
+    $post->description = $_POST['description'];
+    $post->type = $_POST['type'];
     //Xử lí uploadfile
     if(strlen($_FILES['image']['name'])>0){
-        $target_dir = "../public/images/page/";
+        $target_dir = "../public/images/post/";
         $target_file= $target_dir . basename($_FILES["image"]["name"]);
         $extension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         if(in_array($extension, ['jpg','jpeg','png','gif','webp']))
         {
-            $filename=$page->slug.'.'.$extension;
+            $filename=date('YmdHis').'.'.$extension;
             move_uploaded_file($_FILES['image']['tmp_name'],$target_dir . $filename);
-            $page->image =$filename;
+            $post->image =$filename;
         }
     }
     //tư sinh ra
-    $page->created_at = date('Y-m-d-H:i:s');
-    $page->created_by = (isset($_SESSION['user_id']))? $_SESSION['user_id'] : 1;
-    var_dump($page);
-    //luu vao csdl
-    //ínet
-    $page->save();
-    //
+    $post->created_at = date('Y-m-d H:i:s');
+    $post->created_by = (isset($_SESSION['user_id']))? $_SESSION['user_id'] : 1;
+    var_dump($post);
+  
+    $post->save();
+    MyClass::set_flash('message', ['type' => 'success', 'msg' => 'Thêm thành công']);
     header("location:index.php?option=page");
 }
+
+if(isset($_POST['CAPNHAT']))
+{
+    $id= $_POST['id'];
+    $post=post::find($id);
+    if($post == null){
+        MyClass::set_flash('message', ['type' => 'danger', 'msg' => 'Lỗi Trang 404']);
+
+        header("location:index.php?option=post");
+    }
+    $post->slug =(strlen($_POST['slug'])>0) ? $_POST['slug']: MyClass::str_slug($_POST['name']);
+    $post->title = $_POST['title'];
+    $post->topic_id = $_POST['topic_id'];
+    $post->status = $_POST['status'];
+    $post->detail = $_POST['detail'];
+    $post->description = $_POST['description'];
+    $post->type = $_POST['type'];
+    //Xử lí uploadfile
+    if(strlen($_FILES['image']['name'])>0){
+        $target_dir = "../public/images/post/";
+        $target_file= $target_dir . basename($_FILES["image"]["name"]);
+        $extension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        if(in_array($extension, ['jpg','jpeg','png','gif','webp']))
+        {
+            $filename=date('YmdHis').'.'.$extension;
+            move_uploaded_file($_FILES['image']['tmp_name'],$target_dir . $filename);
+            $post->image =$filename;
+        }
+    }
+    //tư sinh ra
+    $post->updated_at = date('Y-m-d H:i:s');
+    $post->updated_by = (isset($_SESSION['user_id']))? $_SESSION['user_id'] : 1;
+    var_dump($post);
+
+    $post->save();
+    MyClass::set_flash('message', ['type' => 'success', 'msg' => 'Cật Nhật thành công']);
+    header("location:index.php?option=page");
+}
+

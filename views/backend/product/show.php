@@ -1,30 +1,26 @@
 <?php
 use App\Models\Product;
-
+use App\Libraries\MyClass;
 
 $id = $_REQUEST['id'];
 $product =  Product::find($id);
 if($product==null){
-    header("location:index.php?option=product");
+   MyClass::set_flash('message', ['type' => 'danger', 'msg' => 'Lỗi Trang 404']);
+   header("location:index.php?option=product");
 }
-
 ?>
-
 <?php require_once "../views/backend/header.php";?>
-
       <!-- CONTENT -->
       <div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-12">
-                     <h1 class="d-inline">Chi tiết sản phẩm</h1>
+                  <h1 class="d-inline">CHI TIẾT SẢN PHẨM</h1>
                   </div>
                </div>
             </div>
          </section>
-
-         <!-- Main content -->
          <section class="content">
             <div class="card">
             <div class="card-header">
@@ -45,7 +41,6 @@ if($product==null){
                         </tr>
                      </thead>
                      <tbody>
-                              
                               <tr>
                                  <td>ID</td>
                                  <td><?= $product->id;?></td>
@@ -71,8 +66,8 @@ if($product==null){
                                  <td><?= $product->price;?></td>
                               </tr>
                               <tr>
-                                 <td>price_sale</td>
-                                 <td><?= $product->price_sale;?></td>
+                                 <td>pricesale</td>
+                                 <td><?= $product->pricesale;?></td>
                               </tr>
                               <tr>
                                  <td>image</td>

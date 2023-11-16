@@ -1,86 +1,87 @@
 <?php
+
 use App\Models\Contact;
-//status=0--> Rac
-//status=1--> Hiện thị lên trang người dùng
-//
-//SELECT * FROM brand wher status!=0 and id=1 order by created_at desc
 
-$list = Contact::where('status','=',0)->orderBy('Created_at','DESC')->get();
+$list = Contact::all();
+$list = Contact::where('status', '=', '0')->orderBy('created_at', 'DESC')->get();
 ?>
-<?php require_once "../views/backend/header.php";?>
-      <!-- CONTENT -->
-      <form action ="index.php?option=contact&cat=process" method="post" enctype="multipart/form-data">
-      <div class="content-wrapper">
-         <section class="content-header">
-            <div class="container-fluid">
-               <div class="row mb-2">
-                  <div class="col-sm-12">
-                     <h1 class="d-inline">Thùng rác liên hệ</h1>
-                  </div>
-               </div>
+<?php require_once('../views/backend/header.php'); ?>
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                <h1 class="d-inline">THÙNG RÁC LIÊN HỆ</h1>
+                </div>
             </div>
-         </section>
-         <!-- Main content -->
-         <section class="content">
-            <div class="card">
-               <div class="card-header ">
-               <div class="row">
-               <div class="col-md-5">
-                  <a href="index.php?option=contact">Tất cả</a> |
-                  <a href="index.php?option=contact&cat=trash"> Thùng rác</a>
-                 </div>
-               Nội Dung
-               <div class="col-md-6 text-right">
-                  <a href="index.php?option=contact" class="btn btn-sm btn-info">
-                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                     Về thương hiệu
-                  </a>
-               </div>  
-
-               </div>
-               <div class="card-body">
-                  <table class="table table-bordered" id="mytable">
-                     <thead>
+        </div>
+    </section>
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-12  text-right">
+                        <a class="btn btn-sm btn-info" href="index.php?option=contact">
+                            <i class="fas fa-arrow-left"></i> Quay về liên hệ
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered" id="myTable">
+                    <thead>
                         <tr>
-                           <th class="text-center" style="width:30px;">
-                              <input type="checkbox">
-                           </th>
-                           <th>user_id</th>
-                           <th>Họ tên</th>
-                           <th>Email</th>
-                           <th>Điện thoại</th>
-
-                           <th>Tiêu đề</th>
-                           <th>Nội Dung</th>
+                            <th class="text-center" style="width:200px">Họ tên</th>
+                            <th class="text-center" style="width:150px">Email</th>
+                            <th class="text-center" style="width:150px">Số điện thoại</th>
+                            <th class="text-center" style="width:160px">Ngày tạo</th>
+                            <th class="text-center" style="width:200px">Chức năng</th>
+                            <th class="text-center" style="width:20px">ID</th>
                         </tr>
-                     </thead>
-                     <tbody>
-                        <tr class="datarow">
-                           <td>
-                              <input type="checkbox">
-                           </td>
-                           <td>
-                              1
-                              </div>
-                              <div class="function_style">
-                                 <a href="#">Hiện</a> |
-                                 <a href="#">Trả lời</a> |
-                                 <a href="../backend/brand_show.html">Chi tiết</a> |
-                                 <a href="#">Xoá</a>
-                              </div>
-                           </td>
-                           <td>Trương Thành Đat</td>
-                           <td>0971885850a@gmail.com</td>
-                           <td>0971885850</td>
-                           <td>Chủ shop</td>
-                           <td>Bán Hàng Rong</td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($list as $row) : ?>
+                            <tr>
+                                <td class="text-center"><input type="checkbox"></td>
+                                <td><?= $row['name'] ?></td>
+                                <td class="text-center"><?= $row['email'] ?></td>
+                                <td class="text-center"><?= $row['phone'] ?></td>
+                                <td class="text-center"><?= $row['created_at'] ?></td>
+                                <td class="text-center">
+                                    <?php if ($row->status == 1) : ?>
+                                        <a href="index.php?option=contact&cat=status&id=<?= $row->id; ?>" class="btn btn-sm btn-success">
+                                            <i class="fas fa-toggle-on"></i>
+                                        </a>
+                                    <?php else : ?>
+                                        <a href="index.php?option=contact&cat=status&id=<?= $row->id; ?>" class="btn btn-sm btn-success">
+                                            <i class="fas fa-toggle-on"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                    <a href="index.php?option=contact&cat=show&id=<?= $row->id; ?>" class="btn btn-sm btn-info">
+                                        <i class="far fa-eye"></i>
+                                    </a>
+                                    <a href="index.php?option=contact&cat=edit&id=<?= $row->id; ?>" class="btn btn-sm btn-primary">
+                                        <i class="far fa-edit"></i>
+                                    </a>
+                                    <a href="index.php?option=contact&cat=destroy&id=<?= $row->id; ?>" class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <a href="index.php?option=contact&cat=restore&id=<?= $row->id; ?>" class="btn btn-sm btn-secondary">
+                                        <i class="fas fa-trash-restore"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center"><?= $row['id'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
-         </section>
-      </div>
-      <form action ="index.php?option=brand&cat=process" method="post" enctype="multipart/form-data">
-      <!-- END CONTENT-->
-      <?php require_once "../views/backend/footer.php";?>
+        </div>
+    </section>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+</script>
+<?php require_once('../views/backend/footer.php'); ?>
